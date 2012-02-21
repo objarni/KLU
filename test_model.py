@@ -16,3 +16,18 @@ class TestSingleDeveloperSingleUnit(unittest.TestCase):
         self.model.add_developer('kalle', [5])
         knowledge = self.model.get_knowledge('kalle')
         self.assertEqual([5], knowledge)
+        
+    def test_that_knowledge_goes_up_after_finished_unit_work(self):
+        self.model.add_developer('kalle', [5])
+        self.model.step(2) # finishing takes 2 steps since amount of work is 9, and knowledge is 5
+        knowledge = self.model.get_knowledge('kalle')
+        self.assertEqual([6], knowledge)
+        
+    def test_works_on_unit_after_one_step(self):
+        self.model.add_developer('kalle', [4])
+        self.model.step(1)
+        doing = self.model.get_doing('kalle')
+        assert 'working on unit 0' == doing
+       
+if __name__ == '__main__':
+    unittest.main()
