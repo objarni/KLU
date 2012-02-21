@@ -1,3 +1,4 @@
+# coding: utf-8
 import unittest
 
 from model import Model
@@ -23,11 +24,35 @@ class TestSingleDeveloperSingleUnit(unittest.TestCase):
         knowledge = self.model.get_knowledge('kalle')
         self.assertEqual([6], knowledge)
         
-    def test_works_on_unit_after_one_step(self):
+    def test_works_on_the_unit_after_one_step(self):
         self.model.add_developer('kalle', [4])
         self.model.step(1)
         doing = self.model.get_doing('kalle')
         assert 'working on unit 0' == doing
        
+# med en utvecklare och två enheter:
+# - blir utvecklaren expert
+#   på båda givet tillräckligt lång tid (och uppgifter på båda!)
+#   (2 tester)
+# - jobbar han enligt todo-listans ordning
+#   (1 test)
+# - det tar 9 steg att bli klar med en uppgift
+#   om kunskapsläget är 1 från början
+#   (1 test)
+# - det tar 1 steg att bli klar med en uppgift
+#   om kunskapsläget är 9 från början
+class TestSingleDeveloperTwoUnits(unittest.TestCase):
+    def setUp(self):
+        self.model = Model(units = 2, ask_threshold = 3, todo = [0,1]*1000)
+
+    def test_finishes_task_in_one_step_if_master(self):
+        self.model.add_developer('kalle', [9, 9])
+        self.model.step(1)
+        self.assertEqual('working on unit 1', self.model.get_doing('kalle'))
+
 if __name__ == '__main__':
     unittest.main()
+
+
+
+

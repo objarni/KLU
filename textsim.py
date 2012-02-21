@@ -7,5 +7,5 @@ model.add_developer('nisse', [1, 1])
 for time in range(10):
     print "*** time " + str(time)
     for dev in ['kalle', 'nisse']:
-        print dev + ": " + str(model.get_knowledge(dev)) + ', doing ' + model.get_doing(dev)
+        print dev + ": " + str(model.get_knowledge(dev)) + ', ' + model.get_doing(dev)
     model.step(1)
