@@ -30,17 +30,6 @@ class TestSingleDeveloperSingleUnit(unittest.TestCase):
         doing = self.model.get_doing('kalle')
         assert 'working on unit 0' == doing
        
-# med en utvecklare och två enheter:
-# - blir utvecklaren expert
-#   på båda givet tillräckligt lång tid (och uppgifter på båda!)
-#v  (2 tester)
-#V- jobbar han enligt todo-listans ordning
-#V  (1 test)
-#V- det tar 9 steg att bli klar med en uppgift
-#V  om kunskapsläget är 1 från början
-#V  (1 test)
-#V- det tar 1 steg att bli klar med en uppgift
-#V  om kunskapsläget är 9 från början
 class TestSingleDeveloperTwoUnits(unittest.TestCase):
     def setUp(self):
         self.model = Model(units = 2, ask_threshold = 3, todo = [0, 1]*1000)
