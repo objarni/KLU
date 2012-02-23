@@ -33,7 +33,7 @@ class TestSingleDeveloperSingleUnit(unittest.TestCase):
 # med en utvecklare och två enheter:
 # - blir utvecklaren expert
 #   på båda givet tillräckligt lång tid (och uppgifter på båda!)
-#   (2 tester)
+#v  (2 tester)
 #V- jobbar han enligt todo-listans ordning
 #V  (1 test)
 #V- det tar 9 steg att bli klar med en uppgift
@@ -68,6 +68,19 @@ class TestSingleDeveloperTwoUnits(unittest.TestCase):
         work_order.append(self.model.get_doing('kalle')[-1])
         self.model.step(1)
         self.assertEqual(['0', '1'], work_order)
+
+    def test_becomes_expert_in_both_given_enough_time(self):
+        self.model.add_developer('kalle', [1, 1])
+        self.model.step(1000)
+        knowledge = self.model.get_knowledge('kalle')
+        self.assertEqual([9, 9], knowledge)
+        
+    def test_becomes_expert_in_what_he_works_on(self):
+        self.model = Model(units = 2, ask_threshold = 3, todo = [0]*1000)
+        self.model.add_developer('kalle', [1, 1])
+        self.model.step(1000)
+        knowledge = self.model.get_knowledge('kalle')
+        self.assertEqual([9, 1], knowledge)
 
 if __name__ == '__main__':
     unittest.main()
