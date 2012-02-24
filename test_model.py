@@ -39,11 +39,6 @@ class TestSingleDeveloperTwoUnits(unittest.TestCase):
         self.model.step(1)
         self.assertEqual('working on unit 1', self.model.get_doing('kalle'))
 
-    def test_finishes_task_in_one_step_if_master(self):
-        self.model.add_developer('kalle', [9, 9])
-        self.model.step(1)
-        self.assertEqual('working on unit 1', self.model.get_doing('kalle'))
-
     def test_finishes_task_in_9_steps_if_newbee(self):
         self.model.add_developer('kalle', [1, 1])
         self.model.step(9)
