@@ -12,8 +12,8 @@ minlevel       = 1
 default_level  = 5
 default_effort = 9
 
-def run(team,project):
-    team.familiarize(project,level=initiallevel)
+def run(team,project,level=default_level):
+    team.familiarize(project,level)
     time = 0
 
     while project.todo:
@@ -24,16 +24,16 @@ def run(team,project):
             if team.available and project.todo:
                break
             team.workcycle(project)
-            print
-            print "Time =",time
-            project.progress()
-            team.rollcall()
-            project.upcoming()
+            
+            #log("Time =",time)
+            #project.progress()
+            #team.rollcall()
+            #project.upcoming()
             time += 1
 
-    print
-    print "Finished after", time, "work cycles."
-    print
+    #print
+    #print "Finished after", time, "work cycles."
+    #print
 
 class task:
     def __init__(self,area):
