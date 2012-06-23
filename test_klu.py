@@ -10,3 +10,6 @@ class TestForSingleProgrammer(unittest.TestCase):
         programmer = team.member[0]
         programmer_knowledge = programmer.level
         self.assertEqual([9], programmer_knowledge)
+
+if __name__ == '__main__':
+    unittest.main()
