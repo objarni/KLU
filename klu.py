@@ -25,10 +25,10 @@ def run(project,team,level=default_level):
                break
             team.workcycle(project)
             
-            #log("Time =",time)
-            #project.progress()
-            #team.rollcall()
-            #project.upcoming()
+            print "Time =", time
+            project.progress()
+            team.rollcall()
+            project.upcoming()
             time += 1
 
     #print
@@ -109,7 +109,7 @@ class team:
                 p.learn(level)
     def rollcall(self):
         for i, p in enumerate(self.member):
-            print 'Programmer %i knowledge: %s [%s]' % (i, p.level, p.status)
+            print 'Programmer %s knowledge: %s [%s]' % (p.name, p.level, p.status)
     def get_knowledge_matrix(self):
         matrix = []
         for p in self.member:
