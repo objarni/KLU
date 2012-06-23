@@ -12,7 +12,7 @@ minlevel       = 1
 default_level  = 5
 default_effort = 9
 
-def run(team,project,level=default_level):
+def run(project,team,level=default_level):
     team.familiarize(project,level)
     time = 0
 
