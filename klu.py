@@ -34,6 +34,8 @@ def run(project,team,level=default_level):
     #print
     #print "Finished after", time, "work cycles."
     #print
+    
+    return time
 
 class task:
     def __init__(self,area):

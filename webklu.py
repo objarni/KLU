@@ -43,6 +43,8 @@ project = klu.project(number_of_areas)
 project.add_random_tasks(number_of_tasks,seed=seed)
 
 team = klu.team(programmers)
+time = klu.run(project = project, team = team, level = initiallevel)
+'''
 team.familiarize(project,level=initiallevel)
 time = 0
 
@@ -66,6 +68,7 @@ print "Finished after", time, "work cycles."
 print
 
 team.rollcall()
+'''
 
 def print_statistics(time, tasks, programmers):
     time_per_task = time / tasks
@@ -82,3 +85,8 @@ tasks = float(todolength)
 programmers = float(programmers)
 
 print_statistics(time, tasks, programmers)
+
+# TODO
+# use klu.run
+# add log-argument to klu.run
+# script to upload to ftp
