@@ -70,9 +70,3 @@ print "</pre>"
 print "</body>"
 print "</html>"
 
-# TODO
-# #use klu.run
-# add log-argument to klu.run
-# script to upload to ftp
-
-
