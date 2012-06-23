@@ -25,11 +25,11 @@ def run(project,team,level=default_level):
                break
             team.workcycle(project)
             
-            print "Time =", time
-            project.progress()
-            team.rollcall()
-            project.upcoming()
-            time += 1
+            #print "Time =", time
+            #project.progress()
+            #team.rollcall()
+            #project.upcoming()
+            #time += 1
 
     #print
     #print "Finished after", time, "work cycles."
