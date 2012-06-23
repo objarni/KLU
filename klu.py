@@ -49,6 +49,9 @@ class project:
             self.area.append(default_effort)
         self.todo = deque([])
         self.ongoing = []
+    def add_tasks(self,list_of_tasks):
+        for t in list_of_tasks:
+            self.todo.append(task(t))
     def add_random_tasks(self,number_of_tasks,seed=[]):
         if seed:
             random.seed(seed)
