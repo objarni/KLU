@@ -1,13 +1,6 @@
 import unittest
 import klu
 
-# What to test?
-# [x] 1 programmer, 1 area
-# [x] 1 programmer, 2 areas, working on only one area
-# [x] 1 programmer, 2 areas, working on both areas
-# [ ] 2 programmers, 1 area
-# [ ] 2 programmers, 2 areas, working on both areas
-
 class TestForSingleProgrammer(unittest.TestCase):
 
     def test_becomes_expert_after_enough_time(self):
@@ -54,6 +47,15 @@ class TestForSingleProgrammer(unittest.TestCase):
         programmer = team.member[1]
         programmer_knowledge = programmer.level
         self.assertEqual([8,4], programmer_knowledge)
+
+    def test_two_programmers_two_areas_random_tasks_empiric(self):
+        team = klu.team(2)
+        project = klu.project(2)
+        project.add_random_tasks(1000,seed=19)
+        klu.run(project=project,team=team,level=5)
+        programmer = team.member[1]
+        programmer_knowledge = programmer.level
+        self.assertEqual([8,9], programmer_knowledge)
 
 if __name__ == '__main__':
     unittest.main()
