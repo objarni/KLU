@@ -1,6 +1,13 @@
 import unittest
 import klu
 
+# What to test?
+# [x] 1 programmer, 1 area
+# [ ] 1 programmer, 2 areas, working on only one area
+# [ ] 1 programmer, 2 areas, working on both areas
+# [ ] 2 programmers, 1 area
+# [ ] 2 programmers, 2 areas, working on both areas
+
 class TestForSingleProgrammer(unittest.TestCase):
     def test_becomes_expert_after_enough_time(self):
         team = klu.team(1)
