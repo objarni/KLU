@@ -42,33 +42,13 @@ number_of_tasks = todolength
 project = klu.project(number_of_areas)
 project.add_random_tasks(number_of_tasks,seed=seed)
 
+def weblog(msg):
+    print msg
+
 team = klu.team(programmers)
-time = klu.run(project = project, team = team, level = initiallevel)
-'''
-team.familiarize(project,level=initiallevel)
-time = 0
+time = klu.run(project = project, team = team, level = initiallevel, log = weblog)
 
-while project.todo:
-    while team.available and project.todo:
-        team.assign(project)
-
-    while project.ongoing:
-        if team.available and project.todo:
-            break
-        team.workcycle(project)
-        print
-        print "Time =",time
-        project.progress()
-        team.rollcall()
-        project.upcoming()
-        time += 1
-'''
-
-print
-print "Finished after", time, "work cycles."
-print
-
-team.rollcall()
+team.rollcall(weblog)
 
 def print_statistics(time, tasks, programmers):
     time_per_task = time / tasks
