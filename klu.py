@@ -12,28 +12,31 @@ minlevel       = 1
 default_level  = 5
 default_effort = 9
 
-def run(project,team,level=default_level):
+def devnull_log(msg):
+    pass
+
+def run(project, team, level=default_level, log=devnull_log):
     team.familiarize(project,level)
     time = 0
 
     while project.todo:
         while team.available and project.todo:
-            team.assign(project)
+            team.assign(project, log)
 
         while project.ongoing:
             if team.available and project.todo:
                break
             team.workcycle(project)
             
-            #log("Time =",time)
-            #project.progress()
-            #team.rollcall()
-            #project.upcoming()
+            log("Time = %s" % time)
+            project.progress(log)
+            team.rollcall(log)
+            project.upcoming(log)
             time += 1
 
-    #print
-    #print "Finished after", time, "work cycles."
-    #print
+    log('')
+    log("Finished after %i work cycles." % time)
+    log('')
     
     return time
 
@@ -60,15 +63,15 @@ class project:
         for i in range(number_of_tasks):
             t = int(len(self.area)*random.random())
             self.todo.append(task(t))
-    def upcoming(self,number_of_tasks=10):
+    def upcoming(self,log,number_of_tasks=10):
         l = []
         for i in range(min(number_of_tasks,len(self.todo))):
             l.append(str(self.todo[i].area))
-        print 'Next %i task areas: %s' % (number_of_tasks, ' '.join(l))
-    def progress(self):
-        print 'Ongoing tasks:'
+        log('Next %i task areas: %s' % (number_of_tasks, ' '.join(l)))
+    def progress(self, log):
+        log('Ongoing tasks:')
         for t in self.ongoing:
-            print 'Area %i has %i effort left. Responsible programmer: %s.' % (t.area, t.effort, t.responsible.name)
+            log('Area %i has %i effort left. Responsible programmer: %s.' % (t.area, t.effort, t.responsible.name))
     def finalize(self):
         self.ongoing[:] = [task for task in self.ongoing if task.effort > 0]
 
@@ -109,15 +112,15 @@ class team:
         for i, p in enumerate(self.member):
             for i in range(len(project.area)):
                 p.learn(level)
-    def rollcall(self):
+    def rollcall(self, log):
         for i, p in enumerate(self.member):
-            print 'Programmer %i knowledge: %s [%s]' % (i, p.level, p.status)
+            log('Programmer %i knowledge: %s [%s]' % (i, p.level, p.status))
     def get_knowledge_matrix(self):
         matrix = []
         for p in self.member:
             matrix.append(list(p.level))
         return matrix
-    def assign(self,project):
+    def assign(self, project, log):
         a = self.available
         t = project.todo
         if a and t:
@@ -126,7 +129,7 @@ class team:
             t[0].responsible.working()
             project.ongoing.append(project.todo.popleft())
         else:
-            print "No tasks or programmers available!"
+            log("No tasks or programmers available!")
     def workcycle(self,project):
         for i, task in enumerate(project.ongoing):
             task.effort -= task.responsible.level[task.area]

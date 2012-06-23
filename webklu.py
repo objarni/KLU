@@ -62,13 +62,13 @@ while project.todo:
         team.rollcall()
         project.upcoming()
         time += 1
+'''
 
 print
 print "Finished after", time, "work cycles."
 print
 
 team.rollcall()
-'''
 
 def print_statistics(time, tasks, programmers):
     time_per_task = time / tasks
@@ -91,7 +91,7 @@ print "</body>"
 print "</html>"
 
 # TODO
-# use klu.run
+# #use klu.run
 # add log-argument to klu.run
 # script to upload to ftp
 
