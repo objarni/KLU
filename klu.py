@@ -17,6 +17,9 @@ def run(project,team,level=default_level):
     time = 0
 
     while project.todo:
+        if team.available:
+            team.seek_assistance(project)
+
         while team.available and project.todo:
             team.assign(project)
 
@@ -42,6 +45,7 @@ class task:
         self.area   = area
         self.effort = default_effort
         self.responsible = []
+        self.lack_of_confidence = False
         self.consulted   = []
 
 class project:
@@ -112,6 +116,16 @@ class team:
     def rollcall(self):
         for i, p in enumerate(self.member):
             print 'Programmer %s knowledge: %s [%s]' % (p.name, p.level, p.status)
+    def seek_assistance(self,project):
+        a = self.available
+        for i, t in enumerate(project.ongoing):
+            if t.lack_of_confidence:
+                self.available = sorted(a, key=itemgetter(t.area))
+                if self.available[-1].level[t.area] > t.responsible.level[t.area]:
+                    print "There is somebody to ask!"
+                    t.responsible.discussing()
+                    t.consulted = self.available.pop()
+                    t.lack_of_confidence = False
     def get_knowledge_matrix(self):
         matrix = []
         for p in self.member:
