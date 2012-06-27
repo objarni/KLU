@@ -1,7 +1,7 @@
 import unittest
 import klu
 
-class TestForSingleProgrammer(unittest.TestCase):
+class TestsForASocialTeam(unittest.TestCase):
 
     def test_becomes_expert_after_enough_time(self):
         team = klu.team(1)
